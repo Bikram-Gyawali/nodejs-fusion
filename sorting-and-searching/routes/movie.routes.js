@@ -22,19 +22,22 @@ router.get("/movies", async (req, res) => {
     let genre = req.query.genre;
 
     const genreOptions = [
-			"Action",
-			"Romance",
-			"Fantasy",
-			"Drama",
-			"Crime",
-			"Adventure",
-			"Thriller",
-			"Sci-fi",
-			"Music",
-			"Family",
-		];
+      "Action",
+      "Romance",
+      "Fantasy",
+      "Drama",
+      "Crime",
+      "Adventure",
+      "Thriller",
+      "Sci-fi",
+      "Music",
+      "Family",
+    ];
 
-
+    genre === "All"
+      ? (genre = [...genreOptions])
+      : (genre = req.query.genre.split(","));
+    req.query.sort ? (sort = req.query.sort.split(",")) : (sort = [sort]);
   } catch (error) {}
 });
 
