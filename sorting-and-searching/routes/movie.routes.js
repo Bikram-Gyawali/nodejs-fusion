@@ -68,6 +68,8 @@ router.get("/movies", async (req, res) => {
 			genres: genreOptions,
 			movies,
 		};
+
+    res.status(200).json(response);
   } catch (error) {}
 });
 
