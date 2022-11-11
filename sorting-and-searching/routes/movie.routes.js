@@ -59,6 +59,15 @@ router.get("/movies", async (req, res) => {
       genre: { $in: [...genre] },
       name: { $regex: search, $options: "i" },
     });
+
+    const response = {
+			error: false,
+			total,
+			page: page + 1,
+			limit,
+			genres: genreOptions,
+			movies,
+		};
   } catch (error) {}
 });
 
