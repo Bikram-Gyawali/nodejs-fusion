@@ -91,7 +91,22 @@
     "rating": "8.3"
   },
   {
+    "name": "Coco 2",
+    "img": "https://m.media-amazon.com/images/M/MV5BYjQ5NjM0Y2YtNjZkNC00ZDhkLWJjMWItN2QyNzFkMDE3ZjAxXkEyXkFqcGdeQXVyODIxMzk5NjA@._V1_FMjpg_UX674_.jpg",
+    "year": "2017",
+    "genre": ["Family", "Adventure"],
+    "rating": "8.3"
+  },
+  {
     "name": "Your Name",
+    "img": "https://m.media-amazon.com/images/M/MV5BODRmZDVmNzUtZDA4ZC00NjhkLWI2M2UtN2M0ZDIzNDcxYThjL2ltYWdlXkEyXkFqcGdeQXVyNTk0MzMzODA@._V1_FMjpg_UX674_.jpg",
+    "year": "2016",
+    "genre": ["Romance", "Fantasy"],
+    "rating": "8.3"
+  }
+  ,
+  {
+    "name": "Your Name 2",
     "img": "https://m.media-amazon.com/images/M/MV5BODRmZDVmNzUtZDA4ZC00NjhkLWI2M2UtN2M0ZDIzNDcxYThjL2ltYWdlXkEyXkFqcGdeQXVyNTk0MzMzODA@._V1_FMjpg_UX674_.jpg",
     "year": "2016",
     "genre": ["Romance", "Fantasy"],
