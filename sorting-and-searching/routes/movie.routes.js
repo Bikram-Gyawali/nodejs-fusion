@@ -20,6 +20,21 @@ router.get("/movies", async (req, res) => {
     const search = req.query.search || "";
     let sort = req.query.sort || "rating";
     let genre = req.query.genre;
+
+    const genreOptions = [
+			"Action",
+			"Romance",
+			"Fantasy",
+			"Drama",
+			"Crime",
+			"Adventure",
+			"Thriller",
+			"Sci-fi",
+			"Music",
+			"Family",
+		];
+
+
   } catch (error) {}
 });
 
