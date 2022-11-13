@@ -39,13 +39,26 @@ router.get("/movies", async (req, res) => {
       : (genre = req.query.genre.split(","));
     req.query.sort ? (sort = req.query.sort.split(",")) : (sort = [sort]);
 
-
-    let sortBy={};
-    if(sort[1]){
-      sortBy[sort[0]]=sort[1];
-    }else{
-      sortBy[sort[0]]="asc";
+    let sortBy = {};
+    if (sort[1]) {
+      sortBy[sort[0]] = sort[1];
+    } else {
+      sortBy[sort[0]] = "asc";
     }
+
+    const movies = await Movie.find({
+      name: { $regex: search, $options: search, $options: "i" },
+    })
+      .where("genre")
+      .in([...genre])
+      .sort(sortBy)
+      .skip(page * limit)
+      .limit(limit);
+
+    const total = await Movie.countDocuments({
+      genre: { $in: [...genre] },
+      name: { $regex: search, $options: "i" },
+    });
   } catch (error) {}
 });
 
