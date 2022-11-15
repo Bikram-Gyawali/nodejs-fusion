@@ -18,6 +18,7 @@ async function cryptopriceScraper() {
       "Coin",
       "Price",
       "24h",
+      "12h",
       "7d",
       "Marketcap",
       "Volume",
