@@ -12,4 +12,8 @@ app.get("/", (req, res) => {
 app.get("/", function (req, res) {
   res.render("room");
 });
+
+app.get("/:room", (req, res) => {
+  res.render("room", { roomId: req.param.room });
+});
 server.listen(3000);
