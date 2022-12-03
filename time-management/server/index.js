@@ -64,6 +64,21 @@ const TaskFunctions = {
     return task;
   },
 
+  async update(id, data) {
+    const task = await Task.findByPk(id);
+    task.name = data.name || task.name;
+    task.cron_string = data.cron_string || task.cron_string;
+    task.completed = [true, false].includes(data.completed)
+      ? data.completed
+      : task.completed;
+    await task.save();
+    return task;
+  },
+
+  async del(id) {
+    const task = await Task.destroy({ where: { id } });
+    return id;
+  },
 
 };
 
