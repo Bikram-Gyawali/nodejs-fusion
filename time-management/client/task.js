@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import {isValidCron} from 'cron-validator';
 const url = "http://localhost:3001/api/task";
 const headers = {
   "Content-Type": "application/json",
@@ -43,6 +44,7 @@ const TaskTable = (props) => {
     }
     getTasks();
   }, []);
+
   return (
     <table border="1">
       <thead>
@@ -56,6 +58,51 @@ const TaskTable = (props) => {
       </thead>
       <tbody></tbody>
     </table>
+  );
+};
+
+const NewTask = (props) => {
+  const [task, setTask] = useState({
+    name: "",
+    cron_string: "",
+    completed: false,
+  });
+  const handleChange = (e) =>
+    setTask({ ...task, [e.target.name]: e.target.value });
+  const save = async (e) => {
+    const result = await API.create(task);
+    props.handleSave(result);
+    setTask({ name: "", cron_string: "", completed: false });
+  };
+  return (
+    <tr>
+      <td></td>
+      <td>
+        <input
+          type="text"
+          name="name"
+          value={task.name}
+          onChange={handleChange}
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          name="cron_string"
+          value={task.cron_string}
+          onChange={handleChange}
+        />
+      </td>
+      <td>
+        <button
+          onClick={save}
+          disabled={!task.name || !isValidCron(task.cron_string)}
+        >
+          Save
+        </button>
+      </td>
+      <td></td>
+    </tr>
   );
 };
 export default TaskTable;
