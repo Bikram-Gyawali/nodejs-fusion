@@ -35,31 +35,59 @@ const API = {
   },
 };
 
-const TaskTable = (props) => {
+const TaskTable = props => {
   const [tasks, setTasks] = useState([]);
-  useEffect(() => {
-    async function getTasks() {
-      const data = await API.getAll();
-      setTasks(data);
-    }
-    getTasks();
-  }, []);
 
-  return (
-    <table border="1">
+  const handleSave = task => {
+      setTasks([...tasks, task]);
+  }
+
+  const handleUpdate = (id, task) => {
+      const oldTasks = [...tasks];
+      const find = oldTasks.find(t => t.id == id);
+      if (find) {
+          find.completed = task.completed;
+          find.name = task.name;
+          find.cron_string = task.cron_string;
+      }
+      setTasks(oldTasks);
+  }
+
+  const handleDelete = id => {
+      const oldTasks = [...tasks];
+      const index = oldTasks.findIndex(t => t.id == id);
+      if (index > -1) {
+          oldTasks.splice(index, 1);
+      }
+      setTasks(oldTasks);
+  }    
+
+  useEffect(() => {
+      async function getTasks() {
+          const data = await API.getAll();
+          setTasks(data);
+      }
+      getTasks();
+  }, []);    
+
+  return <table border='1'>
       <thead>
-        <tr>
-          <th>Completed</th>
-          <th>Name</th>
-          <th>Cron String</th>
-          <th>Edit</th>
-          <th>Delete</th>
-        </tr>
+          <tr>
+              <th>Completed</th>
+              <th>Name</th>
+              <th>Cron String</th>
+              <th>Edit</th>
+              <th>Delete</th>
+          </tr>
       </thead>
-      <tbody></tbody>
-    </table>
-  );
-};
+      <tbody>
+          {tasks.map(t => <TaskRow key={t.id} task={t} handleUpdate={handleUpdate} handleDelete={handleDelete} />)}
+          <NewTask handleSave={handleSave} />
+      </tbody>
+  </table>
+}
+
+
 
 const NewTask = (props) => {
   const [task, setTask] = useState({
@@ -105,4 +133,7 @@ const NewTask = (props) => {
     </tr>
   );
 };
-export default TaskTable;
+
+
+
+    export default TaskTable;
