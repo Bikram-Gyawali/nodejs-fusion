@@ -118,6 +118,13 @@ app.delete("/api/task/:id", async (req, res) => {
   res.send({ result });
 });
 
+app.post('/api/task', async (req,res) => {
+  const result = await TaskFunctions.create(req.body);
+  await taskSchedule.rebuildSchedule();
+  res.send({result});
+});
+
 app.listen(PORT, () => {
   console.log(`App is live on port ${PORT}`);
 });
+
