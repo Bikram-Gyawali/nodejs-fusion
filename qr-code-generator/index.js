@@ -3,7 +3,7 @@ const path = require("path");
 
 QRCode.toFile(
   path.join(__dirname, "qrcode.png"),
-  "google.com",
+  "https://bikramgyawali.netlify.app/",
   (err) => {
     if (err) throw err;
   }
