@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+
 const url = "http://localhost:3001/api/task/today";
 const headers = {
   "Content-Type": "applicaton/json",
 };
+
 const API = {
   async getToday() {
     const res = await fetch(`${url}`, {
@@ -13,6 +15,7 @@ const API = {
     return result;
   },
 };
+
 const TaskRow = (props) => {
   const { task } = props;
   return (
@@ -22,6 +25,7 @@ const TaskRow = (props) => {
     </tr>
   );
 };
+
 const Home = (props) => {
   const [tasks, setTasks] = useState([]);
   useEffect(() => {
@@ -31,6 +35,7 @@ const Home = (props) => {
     }
     getTasks();
   }, []);
+
   return (
     <>
       <h1>Today's Incomplete Tasks</h1>
@@ -50,4 +55,5 @@ const Home = (props) => {
     </>
   );
 };
+
 export default Home;
