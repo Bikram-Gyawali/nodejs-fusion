@@ -112,18 +112,18 @@ for (i = 0; i < walletAddreess.length; i++) {
   filtereedAddress.push(walletAddreess[i].replace(/["]+/g, ""));
 }
 // console.log("filtered", filtereedAddress);
-const loadWalletAndBalance =  async() => {
+const loadWalletAndBalance = async () => {
   for (let i = 0; i < walletAddreess.length; i++) {
     // setInterval(async () => {
-      try {
-        const response = await axios
-          .get(
-            `https://api.bscscan.com/api?module=account&action=balancemulti&address=${filtereedAddress}&tag=latest&apikey=5PZ437S1XSXV1I7NA6QUXSNDXX6NKZXW9X`
-          )
-          .then((res) => console.log("Response", res.data));
-      } catch (error) {
-        console.log("error occured", error);
-      }
+    try {
+      const response = await axios
+        .get(
+          `https://api.bscscan.com/api?module=account&action=balancemulti&address=${filtereedAddress}&tag=latest&apikey=${process.env.API_KEY}`
+        )
+        .then((res) => console.log("Response", res.data));
+    } catch (error) {
+      console.log("error occured", error);
+    }
     // }, 4000);
   }
 };
