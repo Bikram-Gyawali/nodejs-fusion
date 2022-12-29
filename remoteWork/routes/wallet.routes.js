@@ -1,4 +1,3 @@
-const router = require("express").Router();
 
 const wallet = require("../models/wallet.model");
 
@@ -107,24 +106,18 @@ let walletAddreess = [
   "0xf10ffd1ce9a2f2c1907f30bb874d880a5fcc1b9f",
 ];
 
-let filtereedAddress = [];
-for (i = 0; i < walletAddreess.length; i++) {
-  filtereedAddress.push(walletAddreess[i].replace(/["]+/g, ""));
-}
-// console.log("filtered", filtereedAddress);
+
 const loadWalletAndBalance = async () => {
   for (let i = 0; i < walletAddreess.length; i++) {
-    // setInterval(async () => {
     try {
       const response = await axios
         .get(
-          `https://api.bscscan.com/api?module=account&action=balancemulti&address=${filtereedAddress}&tag=latest&apikey=${process.env.API_KEY}`
+          `https://api.bscscan.com/api?module=account&action=balancemulti&address=${walletAddreess}&tag=latest&apikey=${process.env.API_KEY}`
         )
         .then((res) => console.log("Response", res.data));
     } catch (error) {
       console.log("error occured", error);
     }
-    // }, 4000);
   }
 };
 
