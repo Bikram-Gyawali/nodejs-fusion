@@ -2,13 +2,13 @@ require("dotenv").config();
 const express = require("express");
 const dbConnect = require("./db/dbConnect");
 const app = express();
-const loadWalletAndBalance = require("./routes/wallet.routes");
+const getBalance = require("./utils/getBalance");
 
 dbConnect();
 
 app.use(express.json());
 
-  loadWalletAndBalance();
+  getBalance();
 
 const port = 3000;
 
