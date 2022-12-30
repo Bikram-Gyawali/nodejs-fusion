@@ -6,7 +6,6 @@ const getBalance = require("./utils/getBalance");
 const uploadAddressandBalance = require("./routes/wallet.routes");
 dbConnect();
 
-// getBalance();
 
 app.use(express.json());
 app.use("/api", uploadAddressandBalance);
