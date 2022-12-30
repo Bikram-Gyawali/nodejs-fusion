@@ -3,12 +3,13 @@ const express = require("express");
 const dbConnect = require("./db/dbConnect");
 const app = express();
 const getBalance = require("./utils/getBalance");
-
+const uploadAddressandBalance = require("./routes/wallet.routes");
 dbConnect();
 
-app.use(express.json());
+// getBalance();
 
-  getBalance();
+app.use(express.json());
+app.use("/api", uploadAddressandBalance);
 
 const port = 3000;
 
