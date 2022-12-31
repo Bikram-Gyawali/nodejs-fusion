@@ -1,12 +1,9 @@
 const mongoose = require("mongoose");
-
 const dbConnect = () => {
-  mongoose.connect(
-    "mongodb+srv://bikram:bikram123@wallet.zbwnbst.mongodb.net/test",
-    { useNewUrlParser: true }
-  );
+  dbClient = mongoose.connect(process.env.DB, { useNewUrlParser: true });
+
   mongoose.connection.on("connected", () => {
-    console.log("Conncted to db ");
+    console.log("Connected to db ");
   });
 
   mongoose.connection.on("error", (err) => {
