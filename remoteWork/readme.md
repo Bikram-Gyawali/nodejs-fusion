@@ -38,16 +38,16 @@ $ npm start
 ````
 
 ## Before you run the app :
-    Get API from https://bscscan.com/ store it as API_KEY=YOUR API KEY HERE in .env file (create yours) and store mongodb uri as DB=YOUR_URI
-    
-    Also follow as mentioned below : 
-    In the `utils/addressList.js` file you can put your required
-    wallet account address to obeseve the changes. In the array `walletAddress` of file `utils/addressList.js` conains
-    addresslist array which I have taken is from bscscan.com/accounts these are the top 100 accounts there .
-    But their balance were constant while I was on this task so I have to changed their balance in database 
-    to see the balance difference and percentage at different time period. 
-    This api also moves the old wallets and balance into another collection : ``history`` from collection : ``walletsBalance `` .
-    You need to have some data in the database before so make a post request once you edit the ``addressList`` then you can uncomment the ``schduleTask()`` function in ``index.js`` to move the old data to another collection and store new data in the original collection ``walletsBalance`` 
+Get API from https://bscscan.com/ store it as API_KEY=YOUR API KEY HERE in .env file (create yours) and store mongodb uri as DB=YOUR_URI
+
+Also follow as mentioned below : 
+In the `utils/addressList.js` file you can put your required
+wallet account address to obeseve the changes. In the array `walletAddress` of file `utils/addressList.js` conains
+addresslist array which I have taken is from bscscan.com/accounts these are the top 100 accounts there .
+But their balance were constant while I was on this task so I have to changed their balance in database 
+to see the balance difference and percentage at different time period. 
+This api also moves the old wallets and balance into another collection : ``history`` from collection : ``walletsBalance `` .
+You need to have some data in the database before so make a post request once you edit the ``addressList`` then you can uncomment the ``schduleTask()`` function in ``index.js`` to move the old data to another collection and store new data in the original collection ``walletsBalance`` 
 
 
 
