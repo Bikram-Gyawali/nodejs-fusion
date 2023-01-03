@@ -37,8 +37,8 @@ $ npm install
 $ npm start
 ````
 
-## Before you run the app :
-Get API from https://bscscan.com/ store it as API_KEY=YOUR API KEY HERE in .env file (create yours) and store mongodb uri as DB=YOUR_URI
+## Before you run the server :
+Get API from https://bscscan.com/ store it as API_KEY=(YOUR API KEY HERE) . in .env file (create yours) at root level folder and store mongodb uri as DB=YOUR_URI
 
 Also follow as mentioned below : 
 In the `utils/addressList.js` file you can put your required
