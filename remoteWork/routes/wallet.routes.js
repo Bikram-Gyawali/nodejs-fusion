@@ -3,21 +3,39 @@ const getBalance = require("../utils/getBalance");
 
 const router = require("express").Router();
 
-router.post("/uploadWalletsandBalance", async (req, res) => {
-  console.log("here i am", await getBalance());
-  try {
-    //create new wallets
-    const wallets = new WalletSchema({
-      wallets: await getBalance(),
-    });
+const uploadWalletsandBalance = router.post(
+  "/WalletsAndBalance",
+  async (req, res) => {
+    try {
+      //create new wallets
+      let wallets = new WalletSchema({
+        wallets: await getBalance(),
+      });
 
-    const walletAddnBalance = await wallets.save();
-    res.status(200).json(walletAddnBalance);
-    console.log("response to upload", wallets);
-  } catch (err) {
-    res.status(500).json(err);
-    console.log(err);
+      let walletAddnBalance = await wallets.save();
+      return res.status(200).json(walletAddnBalance);
+      // console.log("response to upload", wallets);
+    } catch (error) {
+      res.status(500).json(error);
+      throw new Error("uploading to wallet collection failed:", {
+        cause: error,
+      });
+    }
   }
-});
+);
 
-module.exports = router;
+const getWalletsAndBalance = router.get(
+  "/getWalletsAndBalance",
+  async (req, res) => {
+    try {
+      let walletsDetails = await WalletSchema.find();
+      console.log("wd", walletsDetails[0]);
+      return res.status(200).json(walletsDetails);
+    } catch (error) {
+      console.log("error on routes:", error);
+      return res.status(500).json(error);
+    }
+  }
+);
+
+module.exports = { uploadWalletsandBalance, getWalletsAndBalance };
