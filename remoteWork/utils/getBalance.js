@@ -11,11 +11,9 @@ const getBalance = async () => {
       )
       .then(
         (res) => res.data.result
-        // console.log("Response")
       );
     return response;
   } catch (error) {
-    // console.log("error occured");
     return error;
   }
 };

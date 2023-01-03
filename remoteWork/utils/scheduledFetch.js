@@ -3,7 +3,7 @@ const storeNewWalletBalance = require("./storeWallets");
 const moveCollections = require("./moveCollections");
 
 let scheduledTask = async () =>
-  cron.schedule("*/10 * * * * *", async () => {
+  cron.schedule("*/5 * * * *", async () => {
     console.log("inside schedule");
     try {
       await storeNewWalletBalance();

@@ -47,7 +47,7 @@ $ npm start
     But their balance were constant while I was on this task so I have to changed their balance in database 
     to see the balance difference and percentage at different time period. 
     This api also moves the old wallets and balance into another collection : ``history`` from collection : ``walletsBalance `` .
-    You need to have some data in the database before so make a post request once you edit the ``addressList`` then you can uncomment the ``schduleTask()`` function in ``index.js`` to move the old data to another collection and store new data in the original collection ``walletsBalance``   
+    You need to have some data in the database before so make a post request once you edit the ``addressList`` then you can uncomment the ``schduleTask()`` function in ``index.js`` to move the old data to another collection and store new data in the original collection ``walletsBalance`` 
 
 
 
