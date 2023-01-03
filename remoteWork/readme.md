@@ -143,10 +143,9 @@ response :
     }]
 
 
-
-
-## Stay in touch
+##  Lets get in touch .
 - Author - [Bikram Gyawali](https://github.com/Bikram-Gyawali)
 - Portfolio - [Bikram ](https://bikramgyawali.netlify.app/)
 - LinkedIn - [Bikram Gyawali](https://www.linkedin.com/in/bikram-gyawali-4069461a0/)
 - email: bikramgyawali57@gmail.com
+
