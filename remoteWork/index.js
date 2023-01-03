@@ -30,12 +30,10 @@ const main = async () => {
   app.use("/api", getWeeklyBalance);
   app.use("/api", getMonthlyBalance);
 
+  // scheduledTask();  // uncomment this line to upload the data into database 
+
   await getHistoryData();
-  // await listCollections();
-  // console.log("in", await listCollections());
-  // console.log("starting scheduling task");
-  console.log("here index");
-  // scheduledTask();
+ 
 
   const port = 8000;
 
