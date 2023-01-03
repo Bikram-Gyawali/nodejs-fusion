@@ -23,7 +23,6 @@ const getHistoryData = async () => {
     sevenDayDiff,
     oneMonthDiff
   );
-  // console.log(daysDifferenceBalanceResponse);
   return daysDifferenceBalanceResponse;
 };
 
