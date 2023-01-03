@@ -41,6 +41,7 @@ $ npm start
 Get API from https://bscscan.com/ store it as API_KEY=(YOUR API KEY HERE) . in .env file (create yours) at root level folder and store mongodb uri as DB=YOUR_URI
 
 Also follow as mentioned below : 
+
 In the `utils/addressList.js` file you can put your required
 wallet account address to obeseve the changes. In the array `walletAddress` of file `utils/addressList.js` conains
 addresslist array which I have taken is from bscscan.com/accounts these are the top 100 accounts there .
