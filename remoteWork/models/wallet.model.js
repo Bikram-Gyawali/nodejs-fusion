@@ -1,8 +1,4 @@
 const mongoose = require("mongoose");
-require("mongoose-long")(mongoose);
-const {
-  Types: { Long },
-} = mongoose;
 
 const WalletSchema = new mongoose.Schema(
   {
