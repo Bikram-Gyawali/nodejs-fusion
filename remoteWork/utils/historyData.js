@@ -1,34 +1,30 @@
 const HistorySchema = require("../models/history.model");
-const moment = require("moment");
+const getDaysDifference = require("./getDaysDifference");
+const getDifference = require("./getDifference");
 let dates = [];
-let jsDates = new Date();
 const getHistoryData = async () => {
   try {
     let historyDetails = await HistorySchema.find();
+    // console.log(historyDetails[0].data[0]);
     historyDetails.map((data) => {
       let arrayOfAddandBalance = data.data[0].wallets;
-      let date = data.data[0].createdAt;
-      // console.log(new Date(date).getMinutes());
+      // console.log(arrayOfAddandBalance);
       dates.push(data.data[0].createdAt);
-      arrayOfAddandBalance.map((res) => {
-        // console.log(res);
-      });
     });
   } catch (err) {
     console.log(err);
     throw new Error("uploading to wallet collection failed:", err);
   }
-  getDaysDifference();
-};
-
-const getDaysDifference = () => {
-  dates.map((date) => {
-    let toMom = moment(date);
-    console.log( toMom.fromNow(date));
-  });
+  const { oneDayDiff, oneMonthDiff, sevenDayDiff } = await getDaysDifference(
+    dates
+  );
+  const daysDifferenceBalanceResponse = await getDifference(
+    oneDayDiff,
+    sevenDayDiff,
+    oneMonthDiff
+  );
+  // console.log(daysDifferenceBalanceResponse);
+  return daysDifferenceBalanceResponse;
 };
 
 module.exports = getHistoryData;
-
-
-// moment(date).calendar()
