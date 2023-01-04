@@ -7,14 +7,12 @@ const uploadWalletsandBalance = router.post(
   "/WalletsAndBalance",
   async (req, res) => {
     try {
-      //create new wallets
       let wallets = new WalletSchema({
         wallets: await getBalance(),
       });
 
       let walletAddnBalance = await wallets.save();
       return res.status(200).json(walletAddnBalance);
-      // console.log("response to upload", wallets);
     } catch (error) {
       res.status(500).json(error);
       throw new Error("uploading to wallet collection failed:", {

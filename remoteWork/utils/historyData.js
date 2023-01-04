@@ -5,10 +5,8 @@ let dates = [];
 const getHistoryData = async () => {
   try {
     let historyDetails = await HistorySchema.find();
-    // console.log(historyDetails[0].data[0]);
     historyDetails.map((data) => {
       let arrayOfAddandBalance = data.data[0].wallets;
-      // console.log(arrayOfAddandBalance);
       dates.push(data.data[0].createdAt);
     });
   } catch (err) {
