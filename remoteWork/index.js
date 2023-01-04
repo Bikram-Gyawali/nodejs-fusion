@@ -6,7 +6,7 @@ const {
   uploadWalletsandBalance,
   getWalletsAndBalance,
 } = require("./routes/wallet.routes");
-const scheduledTask = require("./sync");
+const scheduledTask = require("./utils/scheduledFetch");
 const getHistoryData = require("./utils/historyData");
 const {
   getDailyBalance,
@@ -28,7 +28,7 @@ const main = async () => {
   app.use("/api", getWeeklyBalance);
   app.use("/api", getMonthlyBalance);
 
-  scheduledTask();  // uncomment this line to upload the data into database 
+  // scheduledTask();  // uncomment this line to upload the data into database 
 
   await getHistoryData();
  
