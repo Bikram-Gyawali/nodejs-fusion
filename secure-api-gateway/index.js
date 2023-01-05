@@ -6,6 +6,12 @@ const port = 3000;
 const rateLimit = require("express-rate-limit");
 const secret = process.env.SESSION_SEC;
 const store = new session.MemoryStore();
+const winston = require("winston");
+const expressWinston = require("express-winston");
+const responseTime = require("response-time");
+const cors = require("cors");
+const helmet = require("helmet");
+
 
 const protect = (req, res, next) => {
   const { authenticated } = req.session;
@@ -16,7 +22,8 @@ const protect = (req, res, next) => {
     next();
   }
 };
-
+app.use(cors());
+app.use(helmet());
 app.use(session({ secret, resave: false, saveUninitialized: true, store }));
 
 app.get("/", (req, res) => {
@@ -24,7 +31,20 @@ app.get("/", (req, res) => {
   res.send(`Hello ${name}!`);
 });
 
-
+app.use(responseTime());
+app.use(
+  expressWinston.logger({
+    transports: [new winston.transports.Console()],
+    format: winston.format.json(),
+    statusLevels: true,
+    meta: false,
+    msg: "HTTP {{req.method}} {{req.url}} {{res.statusCode}} {{res.responseTime}}ms",
+    expressFormat: true,
+    ignoreRoute() {
+      return false;
+    },
+  })
+);
 
 app.use(
   rateLimit({
