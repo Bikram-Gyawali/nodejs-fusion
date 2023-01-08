@@ -11,7 +11,7 @@ const expressWinston = require("express-winston");
 const responseTime = require("response-time");
 const cors = require("cors");
 const helmet = require("helmet");
-
+const { createProxyMiddleware } = require("http-proxy-middleware");
 
 const protect = (req, res, next) => {
   const { authenticated } = req.session;
@@ -50,6 +50,17 @@ app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 5, // 5 calls
+  })
+);
+
+app.use(
+  "/search",
+  createProxyMiddleware({
+    target: "http://api.duckduckgo.com/",
+    changeOrigin: true,
+    pathRewrite: {
+      [`^/search`]: "",
+    },
   })
 );
 app.get("/login", (req, res) => {
