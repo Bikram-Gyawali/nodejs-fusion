@@ -9,10 +9,13 @@ const responseTime = require("response-time");
 const cors = require("cors");
 const helmet = require("helmet");
 const { createProxyMiddleware } = require("http-proxy-middleware");
-const { config } = require("dotenv");
+const config = require("./config");
 const secret = config.sessionSecret;
 const port = config.serverPort;
 
+const alwaysAllow = (_1, _2, next) => {
+  next();
+};
 const protect = (req, res, next) => {
   const { authenticated } = req.session;
 
@@ -23,6 +26,7 @@ const protect = (req, res, next) => {
   }
 };
 
+app.disable("x-powered-by");
 app.use(cors());
 app.use(helmet());
 app.use(session({ secret, resave: false, saveUninitialized: true, store }));
@@ -52,6 +56,12 @@ app.get("/login", (req, res) => {
   } else {
     res.send("Already authenticated");
   }
+});
+
+Object.keys(config.proxies).forEach((path) => {
+  const { protected, ...options } = config.proxies[path];
+  const check = protected ? protect : alwaysAllow;
+  app.use(path, check, createProxyMiddleware(options));
 });
 
 app.get("/logout", protect, (req, res) => {
