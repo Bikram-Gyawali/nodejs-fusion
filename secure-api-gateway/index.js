@@ -1,10 +1,7 @@
 const express = require("express");
 const session = require("express-session");
-require("dotenv").config();
 const app = express();
-const port = 3000;
 const rateLimit = require("express-rate-limit");
-const secret = process.env.SESSION_SEC;
 const store = new session.MemoryStore();
 const winston = require("winston");
 const expressWinston = require("express-winston");
@@ -12,6 +9,9 @@ const responseTime = require("response-time");
 const cors = require("cors");
 const helmet = require("helmet");
 const { createProxyMiddleware } = require("http-proxy-middleware");
+const { config } = require("dotenv");
+const secret = config.sessionSecret;
+const port = config.serverPort;
 
 const protect = (req, res, next) => {
   const { authenticated } = req.session;
@@ -22,14 +22,10 @@ const protect = (req, res, next) => {
     next();
   }
 };
+
 app.use(cors());
 app.use(helmet());
 app.use(session({ secret, resave: false, saveUninitialized: true, store }));
-
-app.get("/", (req, res) => {
-  const { name = "user" } = req.query;
-  res.send(`Hello ${name}!`);
-});
 
 app.use(responseTime());
 app.use(
@@ -46,23 +42,8 @@ app.use(
   })
 );
 
-app.use(
-  rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 5, // 5 calls
-  })
-);
+app.use(rateLimit(config.rate));
 
-app.use(
-  "/search",
-  createProxyMiddleware({
-    target: "http://api.duckduckgo.com/",
-    changeOrigin: true,
-    pathRewrite: {
-      [`^/search`]: "",
-    },
-  })
-);
 app.get("/login", (req, res) => {
   const { authenticated } = req.session;
   if (!authenticated) {
@@ -77,11 +58,6 @@ app.get("/logout", protect, (req, res) => {
   req.session.destroy(() => {
     res.send("Successfully logged out");
   });
-});
-
-app.get("/protected", protect, (req, res) => {
-  const { name = "guest user" } = req.query;
-  res.send(`Hello ${name}!`);
 });
 
 app.listen(port, () => {
