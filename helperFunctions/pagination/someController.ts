@@ -5,4 +5,3 @@ const pagination = await getPagination(
   query
 );
 
-res.json({ data: contact, pagination });
