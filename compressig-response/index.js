@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+app.use(compression());
 app.get("/", (req, res) => {
   const favMarvelHero =
     "SpiderMan , IronMan , Thor , Bikram , Dr.Strange and Wanda Maxim (Hot)";
