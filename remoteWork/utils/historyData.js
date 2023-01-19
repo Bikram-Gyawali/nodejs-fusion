@@ -4,6 +4,7 @@ const getDifference = require("./getDifference");
 let dates = [];
 const getHistoryData = async () => {
   try {
+    
     let historyDetails = await HistorySchema.find();
     historyDetails.map((data) => {
       let arrayOfAddandBalance = data.data[0].wallets;

@@ -11,6 +11,8 @@ const getDifference = async (oneDayDiff, sevenDayDiff, oneMonthDiff) => {
   oneWeekDiffA.length = 2;
   oneMonthDiffA.length = 2;
 
+
+
   const oneDayDifferenceBalance = async () => {
     let oneDay = await HistorySchema.find({}).exec();
     oneDay.map((res) => {
