@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main class="app">
+      <div class="header">
+        <h2>Upload Images</h2>
+        <div class="server-message"></div>
+      </div>
+
+      <div class="input-div">
+        <p>Drag & drop photos here or <span class="browse">Browse</span></p>
+        <input
+          type="file"
+          class="file"
+          multiple="multiple"
+          accept="image/jpeg, image/png, image/jpg"
+        />
+      </div>
+
+      <form id="saved-form">
+        <div class="header">
+          <h3>Saved in Server</h3>
+          <button type="submit">Delete</button>
+        </div>
+        <div class="saved-div"></div>
+      </form>
+
+      <form id="queued-form">
+        <div class="header">
+          <h3>Queued in Frontend</h3>
+          <button type="submit">Upload</button>
+        </div>
+        <div class="queued-div"></div>
+      </form>
+    </main>
+
+    <script>
+      let queuedImagesArray = [],
+        savedForm = document.querySelector("#saved-form"),
+        queuedForm = document.querySelector("#queued-form"),
+        savedDiv = document.querySelector(".saved-div"),
+        queuedDiv = document.querySelector(".queued-div"),
+        inputDiv = document.querySelector(".input-div"),
+        input = document.querySelector(".input-div input"),
+        serverMessage = document.querySelector(".server-message"),
+        savedImages = JSON.parse("<%-JSON.stringify(images)%>"),
+        deleteImages = [];
+
+      // SAVED IMAGES
+      if (savedImages) displaySavedImages();
+
+      function displaySavedImages() {
+        let images = "";
+        savedImages.forEach((image, index) => {
+          images += `<div class="image">
+                      <img src="http://localhost:3000/uploads/${image}" alt="image">
+                      <span onclick="deleteSavedImage(${index})">&times;</span>
+                    </div>`;
+        });
+        savedDiv.innerHTML = images;
+      }
+
+      function deleteSavedImage(index) {
+        deleteImages.push(savedImages[index]);
+        savedImages.splice(index, 1);
+        displaySavedImages();
+      }
+
+      savedForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        deleteImagesFromServer();
+      });
+
+      function deleteImagesFromServer() {
+        fetch("delete", {
+          method: "PUT",
+          headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({ deleteImages }),
+        })
+          .then((response) => {
+            if (response.status !== 200) throw Error(response.statusText);
+            deleteImages = [];
+            serverMessage.innerHTML = response.statusText;
+            serverMessage.style.cssText =
+              "background-color: #d4edda; color:#1b5e20";
+          })
+
+          .catch((error) => {
+            serverMessage.innerHTML = error;
+            serverMessage.style.cssText =
+              "background-color: #f8d7da; color:#b71c1c";
+          });
+      }
+
+      // QUEUED IMAGES
+
+      function displayQueuedImages() {
+        let images = "";
+        queuedImagesArray.forEach((image, index) => {
+          images += `<div class="image">
+                    <img src="${URL.createObjectURL(image)}" alt="image">
+                    <span onclick="deleteQueuedImage(${index})">&times;</span>
+                  </div>`;
+        });
+        queuedDiv.innerHTML = images;
+      }
+
+      function deleteQueuedImage(index) {
+        queuedImagesArray.splice(index, 1);
+        displayQueuedImages();
+      }
+
+      input.addEventListener("change", () => {
+        const files = input.files;
+        for (let i = 0; i < files.length; i++) {
+          queuedImagesArray.push(files[i]);
+        }
+        queuedForm.reset();
+        displayQueuedImages();
+      });
+
+      inputDiv.addEventListener("drop", (e) => {
+        e.preventDefault();
+        const files = e.dataTransfer.files;
+        for (let i = 0; i < files.length; i++) {
+          if (!files[i].type.match("image")) continue; // only photos
+
+          if (queuedImagesArray.every((image) => image.name !== files[i].name))
+            queuedImagesArray.push(files[i]);
+        }
+        displayQueuedImages();
+      });
+
+      queuedForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        sendQueuedImagesToServer();
+      });
+
+      function sendQueuedImagesToServer() {
+        const formData = new FormData(queuedForm);
+
+        queuedImagesArray.forEach((image, index) => {
+          formData.append(`file[${index}]`, image);
+        });
+
+        fetch("upload", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => {
+            if (response.status !== 200) throw Error(response.statusText);
+            location.reload();
+          })
+
+          .catch((error) => {
+            serverMessage.innerHTML = error;
+            serverMessage.style.cssText =
+              "background-color: #f8d7da; color:#b71c1c";
+          });
+      }
+    </script>
+  </body>
+</html>
