@@ -1,60 +1,98 @@
-// For creating the server
-const express = require("express");
-// For handling multimedia
-const multer = require("multer");
-// For working with the file and directory paths
-const path = require("path");
-// For interacting with the file system
-const fs = require("fs");
-// Provides access to utility functions
-const util = require("util");
-// ...such as this one to unlink or remove files from the file system
-const unlinkFile = util.promisify(fs.unlink);
+const express = require('express')
+const multer = require('multer')
+const path = require('path')
+const fs = require('fs')
+const util = require('util')
+const unlinkFile = util.promisify(fs.unlink)
 
-// INSERT MULTER MIDDLEWARE HERE ----------------------
-// multer.diskStorage gives you full control of where to store the images
 const storage = multer.diskStorage({
-  // Choose a destination
   destination: function (req, file, cb) {
-    // Lets store them in the uploads folder
-    cb(null, "./public/uploads/");
+    cb(null, './public/uploads/')
   },
-  // Choose a filename for each uploaded image
   filename: function (req, file, cb) {
-    // Lets create a unique name for each image
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + path.extname(file.originalname));
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9)
+    cb(null, uniqueSuffix + path.extname(file.originalname))
   },
-});
+})
+
+function checkFileType(file, cb) {
+  const filetypes = /jpeg|png|jpg|gif/
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase())
+  const mimetype = filetypes.test(file.mimetype)
+
+  if (mimetype && extname) {
+    return cb(null, true)
+  } else {
+    cb('Please upload images only')
+  }
+}
 
 const upload = multer({
-  storage: storage, // Choose destination and filename
-  limits: { fileSize: 1000000 }, // Set a max file size
+  storage: storage,
+  limits: { fileSize: 1000000 },
   fileFilter: function (req, file, cb) {
-    // Filter out certain files
-    checkFileType(file, cb);
+    checkFileType(file, cb)
   },
-}).any(); // accepts all files types coming in through the wire
+}).any()
 
-// Port number the server will run on
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000
 
-// For creating an instance of the express module
-const app = express();
+const app = express()
 
-// Middleware to deal with incoming data from the frontend
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
-// For setting EJS as the template engine
-app.set("view engine", "ejs");
+// For setting template engine
+app.set('view engine', 'ejs')
 
-// For accessing the public folder
-app.use(express.static("public"));
+// For accessing public folder
+app.use(express.static('public'))
 
-// INSERT ROUTES HERE ----------------------------------
+app.get('/', (req, res) => {
+  let images = []
+  fs.readdir('./public/uploads/', (err, files) => {
+    if (!err) {
+      files.forEach((file) => {
+        images.push(file)
+      })
+      res.render('index', { images: images })
+    } else {
+      console.log(err)
+    }
+  })
+})
 
-// For runnng the server
+app.post('/upload', (req, res) => {
+  upload(req, res, (err) => {
+    if (!err && req.files != '') {
+      res.status(200).send()
+    } else if (!err && req.files == '') {
+      res.statusMessage = 'Please select an image to upload'
+      res.status(400).end()
+    } else {
+      res.statusMessage =
+        err === 'Please upload images only' ? err : 'Photo exceeds limit of 1MB'
+      res.status(400).end()
+    }
+  })
+})
+
+app.put('/delete', (req, res) => {
+  const deleteImages = req.body.deleteImages
+
+  if (deleteImages == '') {
+    res.statusMessage = 'Please select an image to delete'
+    res.status(400).end()
+  } else {
+    deleteImages.forEach((image) => {
+      unlinkFile('./public/uploads/' + image)
+    })
+    res.statusMessage = 'Succesfully deleted'
+    res.status(200).end()
+  }
+})
+
+// Run server
 app.listen(port, () => {
-  console.log(`Server started on port ${port}`);
-});
+  console.log(`Server started on port ${port}`)
+})
