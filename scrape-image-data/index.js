@@ -48,4 +48,3 @@ async function scrapeImages() {
     console.log(error);
   }
 }
-scrapeImages();
