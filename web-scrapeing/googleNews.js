@@ -23,7 +23,7 @@ const getNewsData = () => {
         })
       })
       
-    console.log(news_results)
     });
 };
 
+getNewsData();
