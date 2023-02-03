@@ -5,7 +5,15 @@ const app = express(),
   fs = require('fs'),
   port = 3080
 
-// place holder for the data
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocument = require('./swagger.json')
+const customCss = fs.readFileSync(process.cwd() + '/swagger.css', 'utf8') // let express to use this
+app.use(
+  '/api-docs',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, { customCss }),
+)
+
 const tasks = [
   {
     id: 1,
