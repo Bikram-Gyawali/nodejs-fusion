@@ -1,0 +1,17 @@
+What are SOLID Design Principles?
+
+SOLID is an acronym that stands for:
+
+    Single Responsibility Principle (SRP)
+    Open-Closed Principle (OCP)
+    Liskov Substitution Principle (LSP)
+    Interface Segregation Principle (ISP)
+    Dependency Inversion Principle (DIP)
+
+
+
+The Single Responsibility Principle (SRP)
+
+The single responsibility principle states that a class, module, or function should have only one reason to change, meaning it should do one thing.
+
+For example, a class that shows the name of an animal should not be the same class that displays the kind of sound it makes and how it feeds.
