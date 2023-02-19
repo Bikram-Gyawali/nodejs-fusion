@@ -40,3 +40,11 @@ class Feeding {
 
 let animalFeeding1 = new Feeding('Elephant', 'herbivore')
 animalFeeding1.feeding() // Elephant is a/an herbivore
+
+
+
+// This way, each of the classes is doing only one thing:
+
+// the first one prints the name of the animal
+// the second prints the kind of sound it makes
+// and the third one prints its kind of feeding.
