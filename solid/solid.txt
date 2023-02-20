@@ -10,8 +10,16 @@ SOLID is an acronym that stands for:
 
 
 
-The Single Responsibility Principle (SRP)
+1 . The Single Responsibility Principle (SRP)
 
 The single responsibility principle states that a class, module, or function should have only one reason to change, meaning it should do one thing.
 
 For example, a class that shows the name of an animal should not be the same class that displays the kind of sound it makes and how it feeds.
+
+
+2 . The Open-Closed Principle (OCP)
+
+The open-closed principle states that classes, modules, and functions should be open for extension but closed for modification.
+
+This principle might seem to contradict itself, but you can still make sense of it in code. It means you should be able to extend the functionality of a class, module, or function by adding more code without modifying the existing code.
+
