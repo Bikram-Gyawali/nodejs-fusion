@@ -24,3 +24,6 @@ class Animal {
 
 const animal1 = new Animal('Lion', 4, 'lion')
 animal1.getSpeed() // Lion runs up to 80mph
+
+
+// The code above violates the open-closed principle because if you want to add a new animal type, you have to modify the existing code by adding another case to the switch statement.
