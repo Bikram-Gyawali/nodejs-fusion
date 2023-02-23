@@ -40,3 +40,10 @@ console.log(`${lion.name} runs up to ${lion.getSpeed()} mph`) // Lion runs up to
 
 const elephant = new Animal('Elephant', 10, new ElephantSpeedRate())
 console.log(`${elephant.name} runs up to ${elephant.getSpeed()} mph`) // Elephant runs up to 40 mph
+
+
+
+// This way, if you want to add a new animal type, you can create a new class that extends SpeedRate and pass it to the Animal constructor without modifying the existing code.
+
+// For example, I added a new GoatSpeedRate class like this:
+

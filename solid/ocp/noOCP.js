@@ -26,4 +26,7 @@ const animal1 = new Animal('Lion', 4, 'lion')
 animal1.getSpeed() // Lion runs up to 80mph
 
 
+// This principle might seem to contradict itself, but you can still make sense of it in code. It means you should be able to extend the functionality of a class, module, or function by adding more code without modifying the existing code.
+
+
 // The code above violates the open-closed principle because if you want to add a new animal type, you have to modify the existing code by adding another case to the switch statement.
