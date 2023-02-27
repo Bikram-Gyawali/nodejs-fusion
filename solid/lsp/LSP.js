@@ -31,5 +31,10 @@ class Animal {
   
   const cheetah = new Animal('Cheetah');
   makeAnimalSound(cheetah); // Cheetah makes a sound
-
+  
+  const dog = new Dog('Jack');
+  makeAnimalSound(dog); // Jack barks
+  
+  const cat = new Cat('Khloe');
+  makeAnimalSound(cat); // Khloe meows
   
