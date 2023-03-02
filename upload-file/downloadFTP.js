@@ -5,9 +5,9 @@ async function downloadFileFromFTP(localFile, remotePath) {
 
   try {
     await client.access({
-      host: '<YOUR_FTP_HOST>',
-      user: '<YOUR_FTP_USER>',
-      password: '<YOUR_FTP_USER_PASSWORD>', //bigRAM
+      host: '',
+      user: 'bigram',
+      password: 'bigram', //bigRAM
       secure: true,
     })
 
