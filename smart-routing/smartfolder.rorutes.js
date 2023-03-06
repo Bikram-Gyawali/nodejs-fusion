@@ -19,3 +19,20 @@ module.exports = router;
 // /routes/about.js
 const express = require("express");
 const router = express.Router();
+router
+    .route("/")
+    .get((req, res) => res.send("GET ABOUT"))
+    .post((req, res) => res.send("POST ABOUT"));
+module.exports = router;
+
+// index.js
+
+const express = require("express");
+const app = express();
+const port = 3000;
+app.use("/", require("./routes/root"));
+app.use("/home", require("./routes/home"));
+app.use("/about", require("./routes/about"));
+app.listen(port, () =>
+    console.log(`App listening at http://localhost:${port}`)
+);
