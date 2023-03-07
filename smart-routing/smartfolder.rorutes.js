@@ -36,3 +36,9 @@ app.use("/about", require("./routes/about"));
 app.listen(port, () =>
     console.log(`App listening at http://localhost:${port}`)
 );
+
+
+
+// for proper understanding follow this tutorial of smart routig 
+
+// https://betterprogramming.pub/how-to-write-smarter-routing-with-express-and-node-js-4cc53bbc55e5
