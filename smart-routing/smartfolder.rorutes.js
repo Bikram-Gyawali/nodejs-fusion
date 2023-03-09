@@ -40,5 +40,4 @@ app.listen(port, () =>
 
 
 // for proper understanding follow this tutorial of smart routig 
-
 // https://betterprogramming.pub/how-to-write-smarter-routing-with-express-and-node-js-4cc53bbc55e5
