@@ -70,6 +70,6 @@ function generateMessageHTML(username, timestamp, message) {
         </div>
       </div>
     </div>
-    `
+    
     return html;
 }
