@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="business">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+</head>
+<body>
+
+    <div id="join-chat-interface" class="w-screen h-screen flex items-center justify-center">
+        <div class="w-96 h-48 p-4 rounded-md border-2 border-indigo-500 shadow-lg shadow-blue-400/50">
+            
+            <h1 class="text-xl font-bold">Join Chat</h1>
+            <hr class="my-2" />
+
+            <input id="username" class="rounded-md h-8 border border-gray-400 px-2" placeholder="Enter username" type="text" />
+
+            <button id="join-chat" class="block mt-4 text-white rounded-md font-bold px-4 py-2 bg-blue-500 shadow-lg shadow-blue-500/50 hover:bg-blue-600 hover:shadow-xl hover:shadow-blue-700/50">
+                Join Chat
+            </button>
+        </div>
+    </div>
+
+    <div id="chat-interface" class="grid h-screen hidden">
+      
+        <div class="flex max-h-screen flex-col">
+          <div class="header text-md border-b border-gray-200 py-4 pl-4 font-bold">Chat</div>
+          <div class="chat-messages flex-1 overflow-y-scroll">
+            <ul class="space-y-4" id="chat-messages">
+
+    
+            </ul>
+          </div>
+          <div class="input-container p-4">
+            <div class="input-area flex h-28 w-full flex-col space-y-2 rounded-2xl border-2 border-gray-200 p-3">
+              <textarea id="message" class="w-full flex-1 outline-none"></textarea>
+              <div class="buttons flex flex-row items-center space-x-2 align-baseline">
+                <div class="flex-1">
+                </div>
+                <div>
+                  <button id="send-message" class="float-right rounded-xl bg-indigo-500 p-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5 text-indigo-600">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    <script src="/js/main.js"></script>
+</body>
+</html>
