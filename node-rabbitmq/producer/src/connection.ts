@@ -1,8 +1,6 @@
-import client, { Connection, Channel } from "amqplib";
+import client, { Connection, Channel, ConsumeMessage } from "amqplib";
 
 import { rmqUser, rmqPass, rmqhost, NOTIFICATION_QUEUE } from "./config";
-
-type HandlerCB = (msg: string) => any;
 
 class RabbitMQConnection {
   connection!: Connection;
@@ -11,6 +9,7 @@ class RabbitMQConnection {
 
   async connect() {
     if (this.connected && this.channel) return;
+    else this.connected = true;
 
     try {
       console.log(`⌛️ Connecting to Rabbit-MQ Server`);
@@ -24,14 +23,14 @@ class RabbitMQConnection {
 
       console.log(`🛸 Created RabbitMQ Channel successfully`);
 
-      this.connected = true;
+      await this.startListeningToNewMessages();
     } catch (error) {
       console.error(error);
       console.error(`Not connected to MQ Server`);
     }
   }
 
-  async consume(handleIncomingNotification: HandlerCB) {
+  async startListeningToNewMessages() {
     await this.channel.assertQueue(NOTIFICATION_QUEUE, {
       durable: true,
     });
@@ -44,7 +43,7 @@ class RabbitMQConnection {
             return console.error(`Invalid incoming message`);
           }
 
-          handleIncomingNotification(msg?.content?.toString());
+          handleIncomingNotification(msg);
 
           this.channel.ack(msg);
         }
@@ -54,7 +53,30 @@ class RabbitMQConnection {
       }
     );
   }
+
+  async sendToQueue(queue: string, message: any) {
+    try {
+      if (!this.channel) {
+        await this.connect();
+      }
+
+      this.channel.sendToQueue(queue, Buffer.from(JSON.stringify(message)));
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 }
+
+const handleIncomingNotification = (msg: ConsumeMessage) => {
+  try {
+    const parsedMessage = JSON.parse(msg?.content?.toString());
+
+    // Implement your own notification flow
+  } catch (error) {
+    console.error(`Error While Parsing the message`);
+  }
+};
 
 const mqConnection = new RabbitMQConnection();
 
