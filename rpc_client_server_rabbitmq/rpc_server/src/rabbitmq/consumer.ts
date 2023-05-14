@@ -9,16 +9,16 @@ export default class Consumer {
 
     this.channel.consume(
       this.rpcQueue,
-      async (message: ConsumeMessage) => {
-        const { correlationId, replyTo } = message.properties;
-        const operation = message.properties.headers.function;
+      (msg: ConsumeMessage) => {
+        const { correlationId, replyTo } = msg.properties;
+        const operation = msg.properties.headers.function;
         if (!correlationId || !replyTo) {
           console.log("Missing some properties...");
         }
-        console.log("Consumed", JSON.parse(message.content.toString()));
-        await MessageHandler.handle(
+        console.log("Consumed", JSON.parse(msg.content.toString()));
+        MessageHandler.handle(
           operation,
-          JSON.parse(message.content.toString()),
+          JSON.parse(msg.content.toString()),
           correlationId,
           replyTo
         );
