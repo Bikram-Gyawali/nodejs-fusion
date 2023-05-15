@@ -9,7 +9,7 @@ export default class Consumer {
 
     this.channel.consume(
       this.rpcQueue,
-      (msg: ConsumeMessage) => {
+      (msg) => {
         const { correlationId, replyTo } = msg.properties;
         const operation = msg.properties.headers.function;
         if (!correlationId || !replyTo) {
