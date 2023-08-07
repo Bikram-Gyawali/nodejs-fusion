@@ -1,0 +1,1 @@
+Code generation: Generate code for specific tasks, such as creating a database schema or implementing a sorting algorithm.
