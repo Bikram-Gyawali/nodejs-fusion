@@ -1,3 +1,5 @@
 Code generation: Generate code for specific tasks, such as creating a database schema or implementing a sorting algorithm.
 
 Code documentation: Generate documentation for existing code, including comments, explanation of the code's purpose, and examples of how to use it.
+
+Code review: Review code for potential errors or improvements.
