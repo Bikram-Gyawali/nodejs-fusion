@@ -5,3 +5,5 @@ Code documentation: Generate documentation for existing code, including comments
 Code review: Review code for potential errors or improvements.
 
 Debugging: Help debug code by identifying and suggesting solutions to errors.
+
+Testing: Generate tests for existing code or suggest new tests to be written.
