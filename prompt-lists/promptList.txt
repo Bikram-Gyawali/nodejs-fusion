@@ -3,3 +3,5 @@ Code generation: Generate code for specific tasks, such as creating a database s
 Code documentation: Generate documentation for existing code, including comments, explanation of the code's purpose, and examples of how to use it.
 
 Code review: Review code for potential errors or improvements.
+
+Debugging: Help debug code by identifying and suggesting solutions to errors.
