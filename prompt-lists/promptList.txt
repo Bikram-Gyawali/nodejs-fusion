@@ -11,3 +11,5 @@ Testing: Generate tests for existing code or suggest new tests to be written.
 Performance optimization: Suggest ways to improve the performance of code.
 
 Security analysis: Analyze code for potential security vulnerabilities.
+
+Maintenance: Help maintain existing code by identifying and fixing bugs, adding new features, and updating the code to keep it up-to-date with the latest technologies.
