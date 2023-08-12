@@ -9,3 +9,5 @@ Debugging: Help debug code by identifying and suggesting solutions to errors.
 Testing: Generate tests for existing code or suggest new tests to be written.
 
 Performance optimization: Suggest ways to improve the performance of code.
+
+Security analysis: Analyze code for potential security vulnerabilities.
