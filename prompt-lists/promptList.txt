@@ -15,3 +15,5 @@ Security analysis: Analyze code for potential security vulnerabilities.
 Maintenance: Help maintain existing code by identifying and fixing bugs, adding new features, and updating the code to keep it up-to-date with the latest technologies.
 
 Learning: Help learn new programming languages, technologies, and best practices.
+
+Collaboration: Collaborate with other developers on projects.
