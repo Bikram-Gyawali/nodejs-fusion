@@ -17,3 +17,5 @@ Maintenance: Help maintain existing code by identifying and fixing bugs, adding 
 Learning: Help learn new programming languages, technologies, and best practices.
 
 Collaboration: Collaborate with other developers on projects.
+
+Communication: Communicate with stakeholders about the progress of projects and the status of code.
