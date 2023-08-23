@@ -1,5 +1,10 @@
 import { IsEnum, IsNotEmpty, MinLength, IsEmail } from 'class-validator';
 
+enum Gender {
+  MALE = 'male',
+  FEMALE = 'female',
+}
+
 export class UserDto {
   readonly id: number;
 
@@ -32,7 +37,7 @@ export class UserDto {
 
   @IsNotEmpty()
   @IsEnum(['male', 'female'])
-  readonly gender: string;
+  readonly gender: Gender;
 
   @IsNotEmpty()
   readonly status: string;
